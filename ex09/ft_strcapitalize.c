@@ -2,22 +2,62 @@
 #include <ctype.h>
 
 char *ft_strcapitalize(char *str){
+
+    int new_word;
+    char *start;
+
+    new_word = 1;
+    start = str;
+
+    if (str == NULL)
+    {
+        return NULL;
+    }
     
+    while (*str && *str != '\0')
+    {
+        if (new_word && ((*str >= 65 && *str <= 90) || (*str >= 97 && *str <= 122) || (*str >= '0' || *str >= '9')))
+        {
+            if (*str >= 97 && *str <= 122)
+            {
+                *str = *str - 32;
+            }
+            new_word = 0;
+        }
+        else if (new_word && !((*str >= 65 && *str <= 90) || (*str >= 97 && *str <= 122) || (*str >= '0' || *str >= '9')))
+        {
+            new_word = 0;
+        }
+        else if (!new_word && ((*str >= 65 && *str <= 90) || (*str >= 97 && *str <= 122) || (*str >= '0' || *str >= '9')))
+        {
+            if (*str >= 65 && *str <= 90)
+            {
+                *str = *str + 32;
+            }
+        }
+        else{
+            new_word = 1;
+        }
+
+        
+        str++;
+    }
+    return start;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
-    char test_string_1[] = "HelloWorld123";
-    char test_string_2[] = "hello world";
-    char test_string_3[] = "HELLOWORlD";
-    char test_string_4[] = "helloworld";
+    char test_string_1[] = "Hello ? 42mots ? 123World";
+    char test_string_2[] = "hElLo w, rLd";
+    char test_string_3[] = "salut, comment tu vas ? 42mots quarante-deux; cinquante+et+un";
+    char test_string_4[] = "h e l l o w o r l d";
     char test_string_5[] = "";
 
-    ft_strlowcase(test_string_1);
-    ft_strlowcase(test_string_2);
-    ft_strlowcase(test_string_3);
-    ft_strlowcase(test_string_4);
-    ft_strlowcase(test_string_5);
+    ft_strcapitalize(test_string_1);
+    ft_strcapitalize(test_string_2);
+    ft_strcapitalize(test_string_3);
+    ft_strcapitalize(test_string_4);
+    ft_strcapitalize(test_string_5);
 
     printf("Test 1 = %s\n", test_string_1);
     printf("Test 2 = %s\n", test_string_2);
